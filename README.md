@@ -20,4 +20,4 @@
 > Some of the endpoints are not allowed on the Fixer API free tier, so I used dummy data.
 
 ### Download
-You can download the app [here](https://github.com/Omasyo/VoyatekGroup/releases/download/v1.0.0/app-release.apk)
+You can download the app [here](https://github.com/Omasyo/CurrencyCalculator/releases/download/1.0.0/app-release.apk)
