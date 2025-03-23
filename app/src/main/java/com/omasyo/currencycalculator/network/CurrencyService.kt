@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val API_KEY = "be7fb90c3f5d411969243ea1a3a36da3"
+const val API_KEY = "3dd6383e1b178e19e55ef38f8d534c8f"
 
 interface CurrencyService {
     @GET("latest?access_key=$API_KEY")

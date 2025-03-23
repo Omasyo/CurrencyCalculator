@@ -13,13 +13,17 @@ internal class CurrencyNetworkSourceImpl @Inject constructor(
     private val service: CurrencyService,
 ) : CurrencyNetworkSource {
     override suspend fun getLatest(base: String): Response<LatestRatesResponse> {
-        val response = service.getLatest()
+        return try {
+            val response = service.getLatest()
 
-        Log.i("CurrencyNetworkSourceImpl", "getLatest: ${response.raw()}")
+            Log.i("CurrencyNetworkSourceImpl", "getLatest: ${response.raw()}")
 
-        return if (response.isSuccessful) {
-            Response.Success(response.body()!!)
-        } else {
+            if (response.isSuccessful) {
+                Response.Success(response.body()!!)
+            } else {
+                Response.Error("An Error occurred")
+            }
+        } catch (e: Exception) {
             Response.Error("An Error occurred")
         }
     }

@@ -1,9 +1,8 @@
 package com.omasyo.currencycalculator.data
 
-import com.omasyo.currencycalculator.database.conversionhistory.ConversionHistory
 import com.omasyo.currencycalculator.common.Response
+import com.omasyo.currencycalculator.database.conversionhistory.ConversionHistory
 import com.omasyo.currencycalculator.model.ChartPoint
-import com.omasyo.currencycalculator.network.model.TimeSeriesResponse
 import kotlinx.coroutines.flow.Flow
 
 interface ConversionRepository {

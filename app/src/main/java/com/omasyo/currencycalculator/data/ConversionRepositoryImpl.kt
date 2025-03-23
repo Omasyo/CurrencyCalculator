@@ -25,32 +25,32 @@ class ConversionRepositoryImpl @Inject constructor(
 ) : ConversionRepository {
     override fun getCurrencies(base: String): Flow<List<String>> = flow {
         coroutineScope {
-//            launch(dispatcher) {
-//                when (val response = networkSource.getLatest(base)) {
-//                    is Response.Error -> Unit
-//                    is Response.Success -> {
-//                        localSource.clearConversionRates()
-//
-//                        val baseCurrency = response.content.base
-//                        val data = response.content.rates.map { (currency, rate) ->
-//                            ConversionRate(
-//                                currency = currency,
-//                                rate = rate
-//                            )
-//                        }
-//                        localSource.clearConversionRates()
-//                        localSource.updateConversionRates(
-//                            listOf(
-//                                ConversionRate(
-//                                    currency = baseCurrency,
-//                                    rate = 1.0
-//                                )
-//                            )
-//                        )
-//                        localSource.updateConversionRates(data.filterNot { it.currency == baseCurrency })
-//                    }
-//                }
-//            }
+            launch(dispatcher) {
+                when (val response = networkSource.getLatest(base)) {
+                    is Response.Error -> Unit
+                    is Response.Success -> {
+                        localSource.clearConversionRates()
+
+                        val baseCurrency = response.content.base
+                        val data = response.content.rates.map { (currency, rate) ->
+                            ConversionRate(
+                                currency = currency,
+                                rate = rate
+                            )
+                        }
+                        localSource.clearConversionRates()
+                        localSource.updateConversionRates(
+                            listOf(
+                                ConversionRate(
+                                    currency = baseCurrency,
+                                    rate = 1.0
+                                )
+                            )
+                        )
+                        localSource.updateConversionRates(data.filterNot { it.currency == baseCurrency })
+                    }
+                }
+            }
             emitAll(localSource.getCurrencies().flowOn(dispatcher))
 
         }
