@@ -37,7 +37,7 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     private val conversionRate: StateFlow<Double> = _currencyUiState.map { uiState ->
         val symbol = if (uiState.from.isEnabled) uiState.from.currency else uiState.to.currency
-        val rate = repository.getConversionRate(symbol).first()
+        val rate = repository.getConversionRate(symbol).first() ?: 1.0
         rate
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), 1.0)
 
@@ -61,7 +61,7 @@ class ConvertCurrencyViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), UiState.Loading)
 
     fun changeFromAmount(newAmount: String) {
-        val isBase = !currencyUiState.value.from.isEnabled
+        val isBase = currencyUiState.value.from.isEnabled
         _currencyUiState.value = CurrencyUiState(
             from = currencyUiState.value.from.copy(amount = newAmount),
             to = currencyUiState.value.to.copy(amount = newAmount.applyConversion(if (!isBase) conversionRate.value else 1 / conversionRate.value)),
@@ -69,7 +69,7 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     fun changeToAmount(newAmount: String) {
-        val isBase = !currencyUiState.value.to.isEnabled
+        val isBase = currencyUiState.value.to.isEnabled
         _currencyUiState.value = CurrencyUiState(
             from = currencyUiState.value.from.copy(amount = newAmount.applyConversion(if (!isBase) conversionRate.value else 1 / conversionRate.value)),
             to = currencyUiState.value.to.copy(amount = newAmount),
@@ -81,7 +81,7 @@ class ConvertCurrencyViewModel @Inject constructor(
         val amount = currencyUiState.value.to.amount
 
         viewModelScope.launch(Dispatchers.IO) {
-            val rate = repository.getConversionRate(currency) .first()
+            val rate = repository.getConversionRate(currency) .first() ?: 1.0
             _currencyUiState.value = currencyUiState.value.copy(
                 from = currencyUiState.value.from.copy(
                     currency = currency,
@@ -96,7 +96,7 @@ class ConvertCurrencyViewModel @Inject constructor(
         val amount = currencyUiState.value.from.amount
 
         viewModelScope.launch(Dispatchers.IO) {
-            val rate = repository.getConversionRate(currency).first()
+            val rate = repository.getConversionRate(currency).first() ?: 1.0
             _currencyUiState.value = currencyUiState.value.copy(
                 to = currencyUiState.value.to.copy(
                     currency = currency,

@@ -20,7 +20,7 @@ interface ConversionRateDao {
     fun getBaseCurrency(): Flow<String?>
 
     @Query("SELECT rate FROM conversion_rate WHERE currency = :currency")
-    fun getConversionRate(currency: String): Flow<Double>
+    fun getConversionRate(currency: String): Flow<Double?>
 
     @Query("SELECT rate FROM conversion_rate WHERE currency = :currency")
     fun getRate(currency: String): Flow<Double>

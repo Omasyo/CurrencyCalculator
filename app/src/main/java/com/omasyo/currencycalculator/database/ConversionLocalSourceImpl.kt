@@ -19,7 +19,7 @@ class ConversionLocalSourceImpl @Inject constructor (
         return conversionRateDao.getBaseCurrency()
     }
 
-    override fun getConversionRate(currency: String): Flow<Double> {
+    override fun getConversionRate(currency: String): Flow<Double?> {
         return conversionRateDao.getConversionRate(currency)
     }
 

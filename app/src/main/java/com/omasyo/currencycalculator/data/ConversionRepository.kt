@@ -10,7 +10,7 @@ interface ConversionRepository {
 
     fun getBaseCurrency(): Flow<String?>
 
-    fun getConversionRate(currency: String): Flow<Double>
+    fun getConversionRate(currency: String): Flow<Double?>
 
     suspend fun getHistory(): Flow<List<ConversionHistory>>
 

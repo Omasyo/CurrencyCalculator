@@ -9,7 +9,7 @@ interface ConversionLocalSource {
 
     fun getBaseCurrency(): Flow<String?>
 
-    fun getConversionRate(currency: String) : Flow<Double>
+    fun getConversionRate(currency: String) : Flow<Double?>
 
     fun updateConversionRates(rates: List<ConversionRate>)
 

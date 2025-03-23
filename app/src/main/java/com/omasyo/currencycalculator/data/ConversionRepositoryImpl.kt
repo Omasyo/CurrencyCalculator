@@ -60,7 +60,7 @@ class ConversionRepositoryImpl @Inject constructor(
         return localSource.getBaseCurrency().flowOn(dispatcher)
     }
 
-    override fun getConversionRate(currency: String): Flow<Double> {
+    override fun getConversionRate(currency: String): Flow<Double?> {
         return localSource.getConversionRate(currency).flowOn(dispatcher)
     }
 
